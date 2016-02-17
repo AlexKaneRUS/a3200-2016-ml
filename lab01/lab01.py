@@ -5,7 +5,7 @@ import numpy as np
 __author__ = 'AlexKane'
 
 
-def execute(func, grad, x0, const, k, type, n):
+def execute(func, grad, x0, a, b, const, k, type, n):
     if type != 3:
         delta = 0.95
         x1 = x0 - const * grad(x0, n)
@@ -18,7 +18,7 @@ def execute(func, grad, x0, const, k, type, n):
                 x0 = x1
                 x1 = x0 - const * grad(x0, n)
     else:
-        x1 = monte_carlo(func, grad, k, x0, n)
+        x1 = monte_carlo(func, grad, a, b, k, x0, n)
     return x1
 
 
@@ -29,15 +29,15 @@ def measure(x1, x2, n):
     return math.sqrt(k)
 
 
-def monte_carlo(func, grad, k, x0, n):
+def monte_carlo(func, grad, a, b, k, x0, n):
     the_min = float('inf')
     the_x = np.array([0] * n)
     x1 = np.array([0] * n)
     const = dichotomy(func, grad, x0, n)
     for i in range(0, 10000):
-        x0 = np.array([random.random() * random.randint(0, 4)] * n)
+        x0 = np.array([random.random() * random.randint(a, b)] * n)
         x1 = x0 - const * grad(x0, n)
-        while measure(x0, x1, n) > 259:
+        while measure(x0, x1, n) > k:
             x0 = x1
             x1 = x0 - const * grad(x0, n)
         if func(x1, n) < the_min:
@@ -57,35 +57,3 @@ def dichotomy(func, grad, x0, n):
         else:
             b = x2
     return (a + b) / 2
-
-
-def f(x, n):
-    return x ** 3 - 4 * x ** 2 + 2 * x
-
-
-def grad_f(x, n):
-    return 3 * x ** 2 - 8 * x + 2
-    # k = 0.2
-
-
-def f1(x, n):
-    value = 0
-    for i in range(0, n - 1):
-        value = value + (1 - x[i]) ** 2 + 100 * (x[i + 1] - x[i] ** 2) ** 2
-    return value
-
-
-def grad_f1(x, n):
-    grad = np.array([0] * n)
-    grad[0] = (-2) * (1 - x[0]) - 400 * (x[1] - x[0] ** 2) * x[0]
-    for i in range(1, n):
-        if i != n - 1:
-            grad[i] = 200 * (x[i] - x[i - 1] ** 2) - 2 *(1 - x[i]) - 400 * (x[i + 1] - x[i] ** 2) * x[i]
-        else:
-            grad[i] = 200 * (x[i] - x[i - 1] ** 2)
-    return grad
-    # k = 199; n = 2
-    # k = 259; n = 3
-
-
-print(execute(f1, grad_f1, np.array([2, 3, 4]), 0.1, 199, 3, 3))
