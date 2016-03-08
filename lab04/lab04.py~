@@ -95,11 +95,9 @@ def cART(x, features, param):
                     current_gain = (-
                                     ((cl[0] + cr[0]) * math.log((cl[0] + cr[0] + 0.0000001) / (len(l) + len(r)), 2) / (
                                         len(l) + len(r)) + (
-                                         cl[1] + cr[1]) * math.log((cl[1] + cr[1] + 0.0000001) / (len(l) + len(r)),
-                                                                   2) / (
+                                         cl[1] + cr[1]) * math.log((cl[1] + cr[1] + 0.0000001) / (len(l) + len(r)), 2) / (
                                          len(l) + len(r)) + (
-                                         cl[2] + cr[2]) * math.log((cl[2] + cr[2] + 0.0000001) / (len(l) + len(r)),
-                                                                   2) / (
+                                         cl[2] + cr[2]) * math.log((cl[2] + cr[2] + 0.0000001) / (len(l) + len(r)), 2) / (
                                          len(l) + len(r))) + len(l) * (
                                         cl[0] * math.log((cl[0] + 0.0000001) / len(l), 2) / len(l) + cl[1] * math.log(
                                             (cl[1] + 0.0000001) / len(l), 2) / len(l) +
@@ -110,31 +108,27 @@ def cART(x, features, param):
                                         cl[2] * math.log((cl[2] + 0.0000001) / len(r), 2) / len(r)) / (len(l) + len(r)))
                 elif len(l) == 0:
                     current_gain = (-
-                                    ((cl[0] + cr[0]) * math.log((cl[0] + cr[0] + 0.0000001) / (len(l) + len(r)), 2) / (
-                                        len(l) + len(r)) + (
-                                         cl[1] + cr[1]) * math.log((cl[1] + cr[1] + 0.0000001) / (len(l) + len(r)),
-                                                                   2) / (
-                                         len(l) + len(r)) + (
-                                         cl[2] + cr[2]) * math.log((cl[2] + cr[2] + 0.0000001) / (len(l) + len(r)),
-                                                                   2) / (
-                                         len(l) + len(r))) + len(r) * (
-                                        cr[0] * math.log((cl[0] + 0.0000001) / len(r), 2) / len(r) + cr[1] * math.log(
-                                            (cl[1] + 0.0000001) / len(r), 2) / len(r) +
-                                        cl[2] * math.log((cl[2] + 0.0000001) / len(r), 2) / len(r)) / (len(l) + len(r)))
+                     ((cl[0] + cr[0]) * math.log((cl[0] + cr[0] + 0.0000001) / (len(l) + len(r)), 2) / (
+                         len(l) + len(r)) + (
+                          cl[1] + cr[1]) * math.log((cl[1] + cr[1] + 0.0000001) / (len(l) + len(r)), 2) / (
+                          len(l) + len(r)) + (
+                          cl[2] + cr[2]) * math.log((cl[2] + cr[2] + 0.0000001) / (len(l) + len(r)), 2) / (
+                          len(l) + len(r))) + len(r) * (
+                         cr[0] * math.log((cl[0] + 0.0000001) / len(r), 2) / len(r) + cr[1] * math.log(
+                             (cl[1] + 0.0000001) / len(r), 2) / len(r) +
+                         cl[2] * math.log((cl[2] + 0.0000001) / len(r), 2) / len(r)) / (len(l) + len(r)))
                 else:
                     current_gain = (-
-                                    ((cl[0] + cr[0]) * math.log((cl[0] + cr[0] + 0.0000001) / (len(l) + len(r)), 2) / (
-                                        len(l) + len(r)) + (
-                                         cl[1] + cr[1]) * math.log((cl[1] + cr[1] + 0.0000001) / (len(l) + len(r)),
-                                                                   2) / (
-                                         len(l) + len(r)) + (
-                                         cl[2] + cr[2]) * math.log((cl[2] + cr[2] + 0.0000001) / (len(l) + len(r)),
-                                                                   2) / (
-                                         len(l) + len(r))) + len(l) * (
-                                        cl[0] * math.log((cl[0] + 0.0000001) / len(l), 2) / len(l) + cl[1] * math.log(
-                                            (cl[1] + 0.0000001) / len(l), 2) / len(l) +
-                                        cl[2] * math.log((cl[2] + 0.0000001) / len(l), 2) / len(l)) / (
-                                        len(l) + len(r)))
+                     ((cl[0] + cr[0]) * math.log((cl[0] + cr[0] + 0.0000001) / (len(l) + len(r)), 2) / (
+                         len(l) + len(r)) + (
+                          cl[1] + cr[1]) * math.log((cl[1] + cr[1] + 0.0000001) / (len(l) + len(r)), 2) / (
+                          len(l) + len(r)) + (
+                          cl[2] + cr[2]) * math.log((cl[2] + cr[2] + 0.0000001) / (len(l) + len(r)), 2) / (
+                          len(l) + len(r))) + len(l) * (
+                         cl[0] * math.log((cl[0] + 0.0000001) / len(l), 2) / len(l) + cl[1] * math.log(
+                             (cl[1] + 0.0000001) / len(l), 2) / len(l) +
+                         cl[2] * math.log((cl[2] + 0.0000001) / len(l), 2) / len(l)) / (
+                         len(l) + len(r)))
                 if current_gain > gain:
                     gain = current_gain
                     feature = i
@@ -171,7 +165,6 @@ def divideDataSet(data, y):
         i += 1
     return learning_data, testing_data
 
-
 class Random_forest:
     def __init__(self):
         self.list_of_trees = []
@@ -183,6 +176,7 @@ class Random_forest:
             the_tree = Decision_tree()
             the_tree.create_leaves(x1, the_tree.root, the_features, param)
             self.list_of_trees.append(the_tree)
+
 
     def check_class_array(self, x):
         sum = 0
